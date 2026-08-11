@@ -22,6 +22,7 @@ TaskSphere helps users organize tasks, take notes, track alerts, and stay update
 ---
 
 ## 🏗️ Architecture
+![Uploading image.png…]()
 
 TaskSphere runs on a fully managed AWS cloud architecture, designed for scalability, security, and observability:
 
