@@ -137,6 +137,3 @@ GET    /admin/activity
 
 ---
 
-## 📄 License
-
-This project is open for learning and personal use. Feel free to fork and adapt it for your own projects.
