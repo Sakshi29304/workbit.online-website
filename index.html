@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskSphere — Modern Task Management</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>" />
+</head>
+<body>
+
+<!-- ════════════════ AUTH SCREEN ════════════════ -->
+<div id="auth-screen">
+  <div class="auth-left">
+    <div class="auth-branding">
+      <div class="brand-icon">🌐</div>
+      <h1>TaskSphere</h1>
+      <p>Your workspace, beautifully organised</p>
+
+      <div class="auth-features">
+        <div class="auth-feature">
+          <span class="auth-feature-icon">📋</span>
+          <span class="auth-feature-text">Daily, weekly & monthly task views</span>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon">📝</span>
+          <span class="auth-feature-text">Notes for quick thoughts and meeting notes</span>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon">📅</span>
+          <span class="auth-feature-text">Visual calendar scheduling</span>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon">🔔</span>
+          <span class="auth-feature-text">Alerts from your admin, deadline reminders</span>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon">🛡️</span>
+          <span class="auth-feature-text">Admin panel with user management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+
+      <div class="auth-form-title">Welcome back</div>
+      <div class="auth-form-sub">Sign in to your TaskSphere account</div>
+
+      <div class="modal-form" style="gap:14px">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input id="login-username" class="form-input" type="text" placeholder="e.g. testuser" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input id="login-password" class="form-input" type="password" placeholder="Enter password" autocomplete="current-password" />
+          <p style="font-size:12px;margin-top:6px">
+            <a href="#" onclick="showForgotPassword(event)" style="color:var(--purple-600, #7c3aed);font-weight:600">Forgot password?</a>
+          </p>
+        </div>
+        <button class="btn btn-primary btn-lg w-full" onclick="doLogin(event)" style="margin-top:4px">
+          Sign In →
+        </button>
+      </div>
+
+      <div class="form-footer">
+        <p style="font-size:12px;color:var(--gray-400);margin-top:14px">
+          Don't have an account? <a href="#" onclick="showSignup(event)" style="color:var(--purple-600, #7c3aed);font-weight:600">Sign up</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════ SIGN UP SCREEN ════════════════ -->
+<!-- Self-service signup — always creates a "User" role account. -->
+<div id="signup-screen" class="hidden">
+  <div class="auth-right" style="margin:0 auto;width:100%;max-width:480px;min-height:100vh">
+    <div class="auth-form-wrap">
+      <div class="auth-form-title">Create your account</div>
+      <div class="auth-form-sub">Sign up to start using TaskSphere — no admin needed</div>
+      <div class="modal-form" style="gap:14px">
+        <div class="form-group">
+          <label class="form-label">Full name</label>
+          <input id="signup-name" class="form-input" type="text" placeholder="e.g. Sakshi Chavan" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input id="signup-username" class="form-input" type="text" placeholder="e.g. sakshi" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input id="signup-email" class="form-input" type="email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input id="signup-password" class="form-input" type="password" placeholder="At least 8 characters" autocomplete="new-password" />
+        </div>
+        <button class="btn btn-primary btn-lg w-full" onclick="doSignup(event)" style="margin-top:4px">
+          Create Account →
+        </button>
+      </div>
+      <div class="form-footer">
+        <p style="font-size:12px;color:var(--gray-400);margin-top:14px">
+          Already have an account? <a href="#" onclick="showLogin(event)" style="color:var(--purple-600, #7c3aed);font-weight:600">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════ FORGOT PASSWORD SCREEN ════════════════ -->
+<div id="forgot-password-screen" class="hidden">
+  <div class="auth-right" style="margin:0 auto;width:100%;max-width:480px;min-height:100vh">
+    <div class="auth-form-wrap">
+      <div class="auth-form-title">Reset your password</div>
+      <div class="auth-form-sub">Enter the email on your account and we'll send you a link to set a new password.</div>
+      <div class="modal-form" style="gap:14px">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input id="forgot-email" class="form-input" type="email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <button class="btn btn-primary btn-lg w-full" onclick="doForgotPassword(event)" style="margin-top:4px">
+          Send Reset Link →
+        </button>
+      </div>
+      <div class="form-footer">
+        <p style="font-size:12px;color:var(--gray-400);margin-top:14px">
+          Remembered it? <a href="#" onclick="showLogin(event)" style="color:var(--purple-600, #7c3aed);font-weight:600">Back to sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════ RESET PASSWORD SCREEN ════════════════ -->
+<!-- Shown when the page is opened with a ?resetToken= link from the email -->
+<div id="reset-password-screen" class="hidden">
+  <div class="auth-right" style="margin:0 auto;width:100%;max-width:480px;min-height:100vh">
+    <div class="auth-form-wrap">
+      <div class="auth-form-title">Set a new password</div>
+      <div class="auth-form-sub">Choose a new password for your account.</div>
+      <div class="modal-form" style="gap:14px">
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <input id="reset-pw-new" class="form-input" type="password" placeholder="At least 8 characters" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm New Password</label>
+          <input id="reset-pw-confirm" class="form-input" type="password" placeholder="Re-enter new password" autocomplete="new-password" />
+        </div>
+        <button class="btn btn-primary btn-lg w-full" onclick="doResetPassword(event)" style="margin-top:4px">
+          Reset Password →
+        </button>
+      </div>
+      <div class="form-footer">
+        <p style="font-size:12px;color:var(--gray-400);margin-top:14px">
+          <a href="#" onclick="showLogin(event)" style="color:var(--purple-600, #7c3aed);font-weight:600">Back to sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════ FORCE PASSWORD CHANGE SCREEN ════════════════ -->
+<!-- Shown when an admin-created account logs in with a temporary password -->
+<div id="force-pw-screen" class="hidden">
+  <div class="auth-right" style="margin:0 auto;width:100%;max-width:480px;min-height:100vh">
+    <div class="auth-form-wrap">
+      <div class="auth-form-title">Set a new password</div>
+      <div class="auth-form-sub">Your account was created by an admin with a temporary password. Please set your own before continuing.</div>
+      <div class="modal-form" style="gap:14px">
+        <div class="form-group">
+          <label class="form-label">Temporary Password</label>
+          <input id="force-pw-current" class="form-input" type="password" placeholder="The temporary password you logged in with" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <input id="force-pw-new" class="form-input" type="password" placeholder="At least 8 characters" />
+        </div>
+        <button class="btn btn-primary btn-lg w-full" onclick="doForcePasswordChange()" style="margin-top:4px">
+          Set Password & Continue →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════ APP SHELL ════════════════ -->
+<div id="app" class="hidden">
+
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🌐</div>
+      <span class="logo-text">TaskSphere</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <div class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+        <span class="nav-icon">📋</span> Dashboard
+      </div>
+      <div class="nav-item" data-page="calendar" onclick="navigateTo('calendar')">
+        <span class="nav-icon">📅</span> Calendar
+      </div>
+      <div class="nav-item" data-page="notes" onclick="navigateTo('notes')">
+        <span class="nav-icon">📝</span> Notes
+      </div>
+      <div class="nav-item" data-page="messages" onclick="navigateTo('messages')">
+        <span class="nav-icon">💬</span> Messages
+        <span id="messages-nav-badge" class="nav-badge hidden">0</span>
+      </div>
+      <div class="nav-item" data-page="analytics" onclick="navigateTo('analytics')">
+        <span class="nav-icon">📊</span> Analytics
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Account</div>
+      <div class="nav-item" data-page="profile" onclick="navigateTo('profile')">
+        <span class="nav-icon">👤</span> My Profile
+      </div>
+      <div class="nav-item hidden" id="nav-admin" data-page="admin" onclick="navigateTo('admin')">
+        <span class="nav-icon">🛡️</span> Admin Panel
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-chip" onclick="navigateTo('profile')">
+        <div class="user-avatar" id="sidebar-avatar">T</div>
+        <div>
+          <div class="user-name" id="sidebar-user-name">User Name</div>
+          <div class="user-role" id="sidebar-user-role">User</div>
+        </div>
+      </div>
+      <button class="btn btn-ghost btn-sm w-full mt-2" onclick="doLogout()">
+        🚪 Sign Out
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Pages Container ── -->
+  <main class="main-content">
+
+    <!-- Top bar with alert bell (visible on every page) -->
+    <div style="display:flex;justify-content:flex-end;padding:16px 32px 0">
+      <div class="alert-bell-wrap">
+        <button class="alert-bell-btn" onclick="toggleAlertDropdown()" title="Alerts">
+          🔔
+          <span id="alert-bell-badge" class="alert-bell-badge hidden">0</span>
+        </button>
+        <div id="alert-dropdown" class="alert-dropdown hidden">
+          <div class="alert-dropdown-header">
+            <span>Alerts</span>
+            <button class="btn btn-ghost btn-sm" onclick="markAllAlertsRead()">Mark all read</button>
+          </div>
+          <div id="alert-dropdown-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Dashboard ══ -->
+    <div id="page-dashboard" class="page">
+      <div class="page-header">
+        <div>
+          <h2>Dashboard</h2>
+          <p id="dash-greeting">Good morning! Here's your day.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddTask()">
+          + Add Task
+        </button>
+      </div>
+
+      <div class="page-body">
+        <!-- Unread alert banners -->
+        <div id="dash-alert-banners"></div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-icon lav">📋</div>
+            <div>
+              <div class="stat-value" id="stat-total">0</div>
+              <div class="stat-label">Total Tasks</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon mint">✅</div>
+            <div>
+              <div class="stat-value" id="stat-done">0</div>
+              <div class="stat-label">Completed</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon sky">📅</div>
+            <div>
+              <div class="stat-value" id="stat-today">0</div>
+              <div class="stat-label">Due Today</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon peach">🔥</div>
+            <div>
+              <div class="stat-value" id="stat-urgent">0</div>
+              <div class="stat-label">Urgent</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Tabs -->
+        <div class="flex items-center justify-between mt-3" style="flex-wrap:wrap;gap:12px">
+          <div class="view-tabs">
+            <div class="view-tab active" data-view="daily"   onclick="setView('daily')">Today</div>
+            <div class="view-tab"        data-view="weekly"  onclick="setView('weekly')">This Week</div>
+            <div class="view-tab"        data-view="monthly" onclick="setView('monthly')">This Month</div>
+          </div>
+          <div style="font-size:13px;color:var(--gray-400)" id="view-date-label"></div>
+        </div>
+
+        <!-- Task Lists -->
+        <div id="task-lists" class="mt-3"></div>
+      </div>
+    </div>
+
+    <!-- ══ Profile ══ -->
+    <div id="page-profile" class="page">
+      <div class="page-header">
+        <div>
+          <h2>My Profile</h2>
+          <p>Manage your account information</p>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="profile-header-card">
+          <div class="profile-avatar-lg" id="profile-avatar">T</div>
+          <div class="profile-info">
+            <h3 id="profile-name-display">User Name</h3>
+            <span class="profile-role" id="profile-role-display">User</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-bottom:20px">Account Details</h4>
+          <div class="profile-fields-grid">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input id="profile-field-name" class="form-input" type="text" placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input id="profile-field-email" class="form-input" type="email" placeholder="your@email.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input id="profile-field-phone" class="form-input" type="tel" placeholder="+1 (555) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input id="profile-field-location" class="form-input" type="text" placeholder="City, Country" />
+            </div>
+          </div>
+          <button class="btn btn-primary mt-3" onclick="saveProfile()">Save Changes</button>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h4 style="margin-bottom:16px">Change Password</h4>
+          <div class="profile-fields-grid">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <input id="profile-current-password" class="form-input" type="password" placeholder="••••••••" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input id="profile-new-password" class="form-input" type="password" placeholder="••••••••" />
+            </div>
+          </div>
+          <button class="btn btn-ghost mt-3" onclick="changePassword()">Update Password</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Calendar ══ -->
+    <div id="page-calendar" class="page">
+      <div class="calendar-wrap">
+        <div class="cal-header">
+          <h2 id="cal-month-title">June 2026</h2>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="changeCalMonth(-1)">‹</button>
+            <button class="cal-nav-btn" onclick="changeCalMonth(0); State.calMonth=new Date().getMonth(); State.calYear=new Date().getFullYear(); renderCalendar()">Today</button>
+            <button class="cal-nav-btn" onclick="changeCalMonth(1)">›</button>
+          </div>
+        </div>
+
+        <div class="cal-grid">
+          <div class="cal-week-header">
+            <div class="cal-wday">Sun</div>
+            <div class="cal-wday">Mon</div>
+            <div class="cal-wday">Tue</div>
+            <div class="cal-wday">Wed</div>
+            <div class="cal-wday">Thu</div>
+            <div class="cal-wday">Fri</div>
+            <div class="cal-wday">Sat</div>
+          </div>
+          <div id="cal-days-grid" class="cal-days"></div>
+        </div>
+
+        <!-- Legend -->
+        <div class="flex gap-3 mt-3" style="flex-wrap:wrap">
+          <div class="flex items-center gap-1"><span style="width:12px;height:12px;border-radius:3px;background:#FFD8C2;display:inline-block"></span><span style="font-size:12px;color:var(--gray-400)">High Priority</span></div>
+          <div class="flex items-center gap-1"><span style="width:12px;height:12px;border-radius:3px;background:#FFF0A8;display:inline-block"></span><span style="font-size:12px;color:var(--gray-400)">Medium Priority</span></div>
+          <div class="flex items-center gap-1"><span style="width:12px;height:12px;border-radius:3px;background:#B8F0D8;display:inline-block"></span><span style="font-size:12px;color:var(--gray-400)">Low Priority</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Admin Panel ══ -->
+    <div id="page-admin" class="page">
+      <div class="page-header">
+        <div>
+          <h2>Admin Panel</h2>
+          <p>Analytics, monitoring, database health, and user management</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          
+          <span class="badge badge-lav">Admin Only</span>
+        </div>
+      </div>
+      <div class="page-body">
+
+        <!-- ── Analytics ── -->
+        <div class="admin-section-title"><span>📊</span> Analytics</div>
+        <div class="stats-row" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+          <div class="stat-card">
+            <div class="stat-icon lav">👥</div>
+            <div>
+              <div class="stat-value" id="admin-stat-users">0</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon mint">🟢</div>
+            <div>
+              <div class="stat-value" id="admin-stat-online">0</div>
+              <div class="stat-label">Online Now</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon sky">📋</div>
+            <div>
+              <div class="stat-value" id="admin-stat-tasks">0</div>
+              <div class="stat-label">Total Tasks</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon peach">✅</div>
+            <div>
+              <div class="stat-value" id="admin-stat-done">0</div>
+              <div class="stat-label">Tasks Completed</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-section-grid mt-3">
+          <div class="card">
+            <h4 style="margin-bottom:14px">Task Completion by Priority</h4>
+            <div id="admin-completion-bars"></div>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:14px">Platform Overview</h4>
+            <div class="monitor-row"><span class="monitor-label">Admin accounts</span><span class="monitor-value" id="admin-stat-admins">—</span></div>
+            <div class="monitor-row"><span class="monitor-label">Regular users</span><span class="monitor-value" id="admin-stat-regular">—</span></div>
+            <div class="monitor-row"><span class="monitor-label">Pending tasks</span><span class="monitor-value" id="admin-stat-pending">—</span></div>
+            <div class="monitor-row"><span class="monitor-label">Alerts sent</span><span class="monitor-value" id="admin-stat-alerts">—</span></div>
+            <div class="monitor-row"><span class="monitor-label">Unread alerts</span><span class="monitor-value" id="admin-stat-unread-alerts">—</span></div>
+          </div>
+        </div>
+
+        <div class="admin-section-grid mt-3" style="grid-template-columns:2fr 1fr">
+          <div class="card" style="min-width:0">
+            <div class="flex items-center justify-between" style="margin-bottom:4px">
+              <h4>Tasks Created vs Completed <span style="font-weight:400;color:var(--gray-400);font-size:12px">— last 14 days</span></h4>
+              <div style="display:flex;gap:14px;font-size:11px;color:var(--gray-600)">
+                <span><span style="display:inline-block;width:9px;height:9px;border-radius:3px;background:#82BEED;margin-right:4px"></span>Created</span>
+                <span><span style="display:inline-block;width:9px;height:9px;border-radius:3px;background:#7DD8B0;margin-right:4px"></span>Completed</span>
+              </div>
+            </div>
+            <canvas id="admin-trend-chart" style="width:100%;height:180px;display:block"></canvas>
+          </div>
+          <div class="card" style="display:flex;flex-direction:column;align-items:center">
+            <h4 style="margin-bottom:14px;align-self:flex-start">User Roles</h4>
+            <canvas id="admin-roles-donut" width="140" height="140"></canvas>
+            <div id="admin-roles-legend" style="width:100%;margin-top:12px"></div>
+          </div>
+        </div>
+
+        <div class="admin-section-grid mt-3">
+          <div class="card">
+            <h4 style="margin-bottom:14px">Top Users by Tasks Completed</h4>
+            <div id="admin-top-users"></div>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:14px">Platform Activity <span style="font-weight:400;color:var(--gray-400);font-size:12px">— last 35 days</span></h4>
+            <div id="admin-activity-heatmap"></div>
+          </div>
+        </div>
+
+        <!-- ── Monitoring ── -->
+        <div class="admin-section-title"><span>🖥️</span> Monitoring</div>
+        <div class="admin-section-grid">
+          <div class="card">
+            <h4 style="margin-bottom:14px">System Status</h4>
+            <div class="monitor-row">
+              <span class="monitor-label">Database connection</span>
+              <span class="monitor-value"><span id="monitor-db-dot" class="db-status-dot up"></span><span id="monitor-db-status">Connected</span></span>
+            </div>
+            <div class="monitor-row"><span class="monitor-label">Database name</span><span class="monitor-value" id="monitor-db-name">—</span></div>
+            <div class="monitor-row"><span class="monitor-label">Server uptime</span><span class="monitor-value" id="monitor-uptime">—</span></div>
+            <div class="monitor-row"><span class="monitor-label">Last refreshed</span><span class="monitor-value" id="monitor-timestamp">—</span></div>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:14px">Users Currently Online</h4>
+            <div id="monitor-online-list"></div>
+          </div>
+        </div>
+
+        <!-- ── Database / Full Activity Log ── -->
+        <div class="admin-section-title"><span>🗄️</span> Database — Full Activity Log History</div>
+        <div class="card">
+          <div class="flex items-center justify-between" style="margin-bottom:12px">
+            <span style="font-size:12px;color:var(--gray-400)">Showing page <span id="log-page-label">1</span> — every recorded action, kept permanently</span>
+            <div class="flex gap-1">
+              <button class="btn btn-ghost btn-sm" onclick="changeLogPage(-1)">‹ Prev</button>
+              <button class="btn btn-ghost btn-sm" onclick="changeLogPage(1)">Next ›</button>
+            </div>
+          </div>
+          <div id="activity-log-list"></div>
+        </div>
+
+        <!-- ── User Management ── -->
+        <div class="admin-section-title"><span>👥</span> User Management</div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--gray-100);display:flex;justify-content:space-between;align-items:center">
+            <h4>All Users</h4>
+            <div class="flex gap-1">
+              <button class="btn btn-ghost btn-sm" onclick="openBroadcastAlertModal()">📢 Alert All Users</button>
+              <button class="btn btn-primary btn-sm" onclick="openAddUserModal()">+ Add User</button>
+            </div>
+          </div>
+          <div class="admin-table-wrap" style="border:none;border-radius:0;box-shadow:none">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Tasks (Done/Total)</th>
+                  <th>Joined</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ Notes ══ -->
+    <!-- ══ Messages ══ -->
+    <div id="page-messages" class="page">
+      <div class="page-header" style="padding-bottom:16px">
+        <div>
+          <h2>Messages</h2>
+          <p id="messages-page-sub">Chat with the admin team, or with a group you're part of.</p>
+        </div>
+        <button class="btn btn-primary hidden" id="btn-new-message" onclick="openNewMessageModal()">+ New Chat</button>
+      </div>
+
+      <div class="messages-layout" style="flex:1;overflow:hidden">
+
+        <!-- Conversations Sidebar -->
+        <div class="notes-sidebar" id="messages-sidebar">
+          <div class="notes-sidebar-header">
+            <div class="notes-sidebar-top">
+              <span class="notes-sidebar-title">Conversations</span>
+              <span id="conversations-count" style="font-size:12px;color:var(--gray-400)"></span>
+            </div>
+          </div>
+          <div class="notes-list" id="conversations-list"></div>
+        </div>
+
+        <!-- Chat Area -->
+        <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative">
+
+          <div id="messages-empty-state" class="note-empty-state hidden">
+            <span class="note-empty-icon">💬</span>
+            <div class="note-empty-title">No conversation selected</div>
+            <p>Pick a conversation from the list to start chatting.</p>
+          </div>
+
+          <div id="messages-chat-wrap" class="hidden" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+            <div class="chat-thread-header">
+              <div class="chat-thread-avatar" id="chat-thread-avatar">A</div>
+              <div>
+                <div class="chat-thread-name" id="chat-thread-name">Admin Support</div>
+                <div class="chat-thread-sub" id="chat-thread-sub">Send a message and the team will reply here</div>
+              </div>
+            </div>
+            <div class="chat-thread-messages" id="chat-thread-messages"></div>
+            <div class="chat-input-bar">
+              <textarea id="chat-input" class="chat-input" placeholder="Type a message…" rows="1"
+                oninput="autoResize(this)" onkeydown="handleChatInputKeydown(event)"></textarea>
+              <button class="btn btn-primary" id="chat-send-btn" onclick="sendChatMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Notes ══ -->
+    <div id="page-notes" class="page">
+      <div class="page-header" style="padding-bottom:16px">
+        <div>
+          <h2>Notes</h2>
+          <p>Capture thoughts, ideas, and meeting notes — no word limit.</p>
+        </div>
+        <button class="btn btn-primary" onclick="createNewNote()">+ New Note</button>
+      </div>
+
+      <div class="notes-layout" style="flex:1;overflow:hidden">
+
+        <!-- Notes Sidebar -->
+        <div class="notes-sidebar">
+          <div class="notes-sidebar-header">
+            <div class="notes-sidebar-top">
+              <span class="notes-sidebar-title">My Notes</span>
+              <span id="notes-count" style="font-size:12px;color:var(--gray-400)"></span>
+            </div>
+            <div class="notes-search-wrap">
+              <span class="search-icon">🔍</span>
+              <input class="notes-search" type="text" placeholder="Search notes…"
+                oninput="searchNotes(this.value)" />
+            </div>
+          </div>
+          <div class="notes-list" id="notes-list"></div>
+        </div>
+
+        <!-- Editor Area -->
+        <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative">
+
+          <!-- Empty State -->
+          <div id="note-empty-state" class="note-empty-state hidden">
+            <span class="note-empty-icon">📝</span>
+            <div class="note-empty-title">No note selected</div>
+            <p>Pick a note from the list, or create a new one.</p>
+            <button class="btn btn-primary mt-2" onclick="createNewNote()">+ Create your first note</button>
+          </div>
+
+          <!-- Editor -->
+          <div id="note-editor-wrap" class="notes-editor-wrap hidden">
+
+            <!-- Toolbar -->
+            <div class="notes-editor-toolbar">
+              <!-- Color Palette -->
+              <div class="color-palette">
+                <span style="font-size:11px;color:var(--gray-400);margin-right:2px">Color:</span>
+                <div class="color-swatch selected" data-idx="0" style="background:#D4C8F5" onclick="setNoteColor(0)" title="Lavender"></div>
+                <div class="color-swatch"           data-idx="1" style="background:#B8F0D8" onclick="setNoteColor(1)" title="Mint"></div>
+                <div class="color-swatch"           data-idx="2" style="background:#FFD8C2" onclick="setNoteColor(2)" title="Peach"></div>
+                <div class="color-swatch"           data-idx="3" style="background:#C2E4FF" onclick="setNoteColor(3)" title="Sky"></div>
+                <div class="color-swatch"           data-idx="4" style="background:#FFF0A8" onclick="setNoteColor(4)" title="Yellow"></div>
+                <div class="color-swatch"           data-idx="5" style="background:#F0F0EE;border:1px solid #DDD" onclick="setNoteColor(5)" title="White"></div>
+              </div>
+
+              <div style="flex:1"></div>
+
+              <button id="note-pin-btn" class="btn btn-ghost btn-sm note-pin-btn" onclick="togglePinNote()">📍 Pin</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteActiveNote()">🗑️ Delete</button>
+            </div>
+
+            <!-- Meta bar -->
+            <div class="note-meta-bar">
+              <span id="note-meta-updated">Last edited just now</span>
+              <span>·</span>
+              <span id="note-meta-words">0 words</span>
+              <span>·</span>
+              <span id="note-meta-chars">0 characters</span>
+            </div>
+
+            <!-- Title + Body -->
+            <div class="notes-editor-body">
+              <textarea id="note-title-input"
+                class="note-title-field"
+                placeholder="Note title…"
+                rows="1"
+                oninput="updateActiveNote(); autoResize(this)"
+              ></textarea>
+              <textarea id="note-body-input"
+                class="note-body-field"
+                placeholder="Start writing… no limit, no pressure. Capture ideas, meeting notes, to-dos, or anything on your mind."
+                oninput="updateActiveNote()"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Analytics ══ -->
+    <div id="page-analytics" class="page">
+      <div class="page-header">
+        <div>
+          <h2>Analytics</h2>
+          <p>Track your productivity, streaks, and task completion.</p>
+        </div>
+        <div class="analytics-range-row">
+          <button class="analytics-range-btn active" data-range="week"    onclick="updateAnalyticsRange('week')">7 Days</button>
+          <button class="analytics-range-btn"        data-range="month"   onclick="updateAnalyticsRange('month')">30 Days</button>
+          <button class="analytics-range-btn"        data-range="quarter" onclick="updateAnalyticsRange('quarter')">90 Days</button>
+        </div>
+      </div>
+
+      <div class="page-body">
+
+        <!-- KPI Row -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--lav-soft)">✅</div>
+            <div class="kpi-value" id="kpi-completion">—</div>
+            <div class="kpi-label">Completion Rate</div>
+            <div class="kpi-sublabel">tasks done / total</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--mint-soft)">🎯</div>
+            <div class="kpi-value" id="kpi-done">—</div>
+            <div class="kpi-label">Tasks Completed</div>
+            <div class="kpi-sublabel">in selected period</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--peach-soft)">🔥</div>
+            <div class="kpi-value" id="kpi-streak">—</div>
+            <div class="kpi-label">Current Streak</div>
+            <div class="kpi-sublabel">consecutive active days</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--yellow-soft)">⚠️</div>
+            <div class="kpi-value" id="kpi-overdue">—</div>
+            <div class="kpi-label">Overdue Tasks</div>
+            <div class="kpi-sublabel">need your attention</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--sky-soft)">📈</div>
+            <div class="kpi-value" id="kpi-avg">—</div>
+            <div class="kpi-label">Avg Tasks / Day</div>
+            <div class="kpi-sublabel">in selected period</div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="analytics-grid">
+
+          <!-- Completion by Priority -->
+          <div class="card">
+            <div class="analytics-card-title"><span class="ac-icon">📊</span> Completion by Priority</div>
+            <div id="completion-bars"></div>
+          </div>
+
+          <!-- Priority Distribution Donut -->
+          <div class="card">
+            <div class="analytics-card-title"><span class="ac-icon">🍩</span> Task Distribution</div>
+            <div class="donut-wrap">
+              <canvas id="priority-chart"></canvas>
+              <div class="donut-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#F0A882"></div>High Priority</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#E8CC50"></div>Medium Priority</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#7DD8B0"></div>Low Priority</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Heatmap -->
+          <div class="card">
+            <div class="analytics-card-title"><span class="ac-icon">🗓️</span> Activity Heatmap <span style="font-size:11px;color:var(--gray-400);font-family:var(--font-body)">— last 35 days</span></div>
+            <div class="heatmap-label">
+              <span>5 weeks ago</span><span>Today</span>
+            </div>
+            <div id="activity-heatmap"></div>
+            <div style="margin-top:8px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray-400)">
+              <span>Less</span>
+              <div style="display:flex;gap:3px">
+                <div style="width:12px;height:12px;border-radius:2px;background:#EBEBEA"></div>
+                <div style="width:12px;height:12px;border-radius:2px;background:rgba(169,142,232,0.25)"></div>
+                <div style="width:12px;height:12px;border-radius:2px;background:rgba(169,142,232,0.5)"></div>
+                <div style="width:12px;height:12px;border-radius:2px;background:rgba(169,142,232,0.75)"></div>
+                <div style="width:12px;height:12px;border-radius:2px;background:rgba(169,142,232,1)"></div>
+              </div>
+              <span>More</span>
+            </div>
+          </div>
+
+          <!-- Streak -->
+          <div class="card">
+            <div class="analytics-card-title"><span class="ac-icon">🔥</span> Productivity Streak</div>
+            <div class="streak-display">
+              <span class="streak-flame">🔥</span>
+              <div>
+                <div style="display:flex;align-items:baseline;gap:6px">
+                  <span class="streak-number" id="streak-count">0</span>
+                  <span class="streak-unit">day streak</span>
+                </div>
+              </div>
+            </div>
+            <div class="streak-message" id="streak-msg">Complete a task today to start your streak!</div>
+            <div class="overview-pills" style="margin-top:16px">
+              <div class="overview-pill" style="background:var(--mint-soft)">
+                <span>✅</span><span id="pill-total-done" style="font-weight:600">—</span><span style="color:var(--gray-400)">completed all time</span>
+              </div>
+              <div class="overview-pill" style="background:var(--lav-soft)">
+                <span>📝</span><span id="pill-notes" style="font-weight:600">—</span><span style="color:var(--gray-400)">notes saved</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Completions -->
+          <div class="card card-full">
+            <div class="analytics-card-title"><span class="ac-icon">🏆</span> Recently Completed</div>
+            <div id="recent-completions"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+
+<!-- ════════════════ MODALS ════════════════ -->
+
+<!-- Task Add/Edit Modal (user only — admin does not create/edit tasks) -->
+<div id="task-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('task-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="task-modal-title">Add Task</h3>
+      <button class="modal-close" onclick="closeModal('task-modal')">✕</button>
+    </div>
+    <input type="hidden" id="task-id" />
+    <div class="modal-form">
+      <div class="form-group">
+        <label class="form-label">Task Title *</label>
+        <input id="task-title-input" class="form-input" type="text" placeholder="What needs to be done?" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea id="task-desc-input" class="form-textarea" placeholder="Add more details…"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label class="form-label">Priority</label>
+          <select id="task-priority-input" class="form-select">
+            <option value="low">🟢 Low</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="high">🔴 High</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Deadline *</label>
+          <input id="task-deadline-input" class="form-input" type="datetime-local" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('task-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTask()">Save Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Calendar Day Modal -->
+<div id="cal-day-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('cal-day-modal')">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <div>
+        <h3 id="cal-date-label">Selected Date</h3>
+        <p style="font-size:13px;color:var(--gray-400);margin-top:2px">Tasks scheduled</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('cal-day-modal')">✕</button>
+    </div>
+    <div id="cal-day-tasks" style="max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:8px"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('cal-day-modal')">Close</button>
+      <button class="btn btn-primary" onclick="closeModal('cal-day-modal');openAddTask()">+ Add Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add User Modal (admin only — the ONLY way new accounts are created) -->
+<div id="add-user-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('add-user-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add User</h3>
+      <button class="modal-close" onclick="closeModal('add-user-modal')">✕</button>
+    </div>
+    <div class="modal-form">
+      <div class="form-group">
+        <label class="form-label">Username *</label>
+        <input id="new-user-username" class="form-input" type="text" placeholder="e.g. jane_doe" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Name *</label>
+        <input id="new-user-name" class="form-input" type="text" placeholder="Jane Doe" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email *</label>
+        <input id="new-user-email" class="form-input" type="email" placeholder="jane@example.com" />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label class="form-label">Role</label>
+          <select id="new-user-role" class="form-select">
+            <option value="User" selected>User</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Initial Password</label>
+          <input id="new-user-password" class="form-input" type="text" placeholder="Leave blank to auto-generate" />
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--gray-400)">If left blank, a temporary password is generated and the user must change it on first login.</p>
+      <div id="new-user-result" class="hidden"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('add-user-modal')">Cancel</button>
+      <button id="new-user-submit-btn" class="btn btn-primary" onclick="submitAddUser()">Create User</button>
+    </div>
+  </div>
+</div>
+
+<!-- Send Alert Modal (admin only) -->
+<div id="send-alert-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('send-alert-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="send-alert-modal-title">Send Alert</h3>
+      <button class="modal-close" onclick="closeModal('send-alert-modal')">✕</button>
+    </div>
+    <input type="hidden" id="alert-target-user-id" />
+    <div class="modal-form">
+      <p style="font-size:13px;color:var(--gray-600)">Sending to: <strong id="alert-target-user-name">—</strong></p>
+      <div class="form-group">
+        <label class="form-label">Message *</label>
+        <textarea id="alert-message-input" class="form-textarea" placeholder="Type your message to this user…"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Severity</label>
+        <select id="alert-severity-input" class="form-select">
+          <option value="info" selected>ℹ️ Info</option>
+          <option value="warning">⚠️ Warning</option>
+          <option value="urgent">🚨 Urgent</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('send-alert-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitSendAlert()">Send Alert</button>
+    </div>
+  </div>
+</div>
+
+<!-- View User Tasks Modal (admin only — READ-ONLY, no add/edit/delete) -->
+<div id="view-user-tasks-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('view-user-tasks-modal')">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <div>
+        <h3 id="view-user-tasks-title">User's Tasks</h3>
+        <p style="font-size:12px;color:var(--gray-400);margin-top:2px">Read-only — admins cannot edit a user's tasks</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('view-user-tasks-modal')">✕</button>
+    </div>
+    <div id="view-user-tasks-list" style="max-height:400px;overflow-y:auto"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('view-user-tasks-modal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Message Modal (admin only — starts a direct chat or a group with any users) -->
+<div id="new-message-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('new-message-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>New Chat</h3>
+      <button class="modal-close" onclick="closeModal('new-message-modal')">✕</button>
+    </div>
+    <div class="modal-form">
+      <div class="form-group">
+        <label class="form-label">Chat type</label>
+        <div class="role-picker">
+          <button type="button" class="role-btn selected-user" data-chat-type="direct" onclick="setNewChatType('direct')">💬 Direct message</button>
+          <button type="button" class="role-btn" data-chat-type="group" onclick="setNewChatType('group')">👥 Group chat</button>
+        </div>
+      </div>
+      <div class="form-group hidden" id="new-message-group-name-group">
+        <label class="form-label">Group name *</label>
+        <input type="text" id="new-message-group-name" class="form-input" placeholder="e.g. Design Team" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="new-message-users-label">Recipient *</label>
+        <input type="text" id="new-message-user-search" class="form-input" placeholder="Search users by name or username…"
+          oninput="renderNewMessageUserList()" />
+        <div id="new-message-user-list" class="user-picker-list"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message *</label>
+        <textarea id="new-message-body-input" class="form-textarea" placeholder="Write your message…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('new-message-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitNewMessage()">Start Chat</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Action Modal (generic — used for delete user, etc.) -->
+<div id="confirm-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('confirm-modal')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <button class="modal-close" onclick="closeModal('confirm-modal')">✕</button>
+    </div>
+    <p id="confirm-modal-body" style="font-size:14px;color:var(--gray-600)">This action cannot be undone.</p>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('confirm-modal')">Cancel</button>
+      <button id="confirm-modal-action-btn" class="btn btn-danger" onclick="">Confirm</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="js/app.js"></script>
+<script>
+  // Greeting + date label (purely cosmetic, safe to run before app.js finishes loading data)
+  (function() {
+    const h = new Date().getHours();
+    const g = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+    const el = document.getElementById('dash-greeting');
+    if (el) el.textContent = `Good ${g}! Here's your day.`;
+
+    const viewLabel = document.getElementById('view-date-label');
+    if (viewLabel) viewLabel.textContent = new Date().toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' });
+  })();
+
+  // Auto-resize textarea height
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+  }
+</script>
+</body>
+</html>
+
